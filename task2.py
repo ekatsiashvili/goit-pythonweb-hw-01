@@ -41,6 +41,23 @@ class Library(LibraryInterface):
         self.books: List[Book] = []
 
     def add_book(self, book: Book) -> None:
+        
+        if any(b.title == book.title for b in self.books):
+            logger.info(f"Book with title '{book.title}' already exists.")
+            return
+        self.books.append(book)
+        logger.info(f"Book '{book.title}' added successfully.")
+
+    def remove_book(self, title: str) -> None:
+        
+        for book in self.books:
+            if book.title == title:
+                self.books.remove(book)
+                logger.info(f"Book '{title}' removed successfully.")
+                return
+        logger.info(f"Book with title '{title}' not found.")
+
+    def add_book(self, book: Book) -> None:
         self.books.append(book)
 
     def remove_book(self, title: str) -> None:
